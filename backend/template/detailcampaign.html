@@ -1,0 +1,109 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ campaign.title }}{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    body {
+        background-color: #f4f4f4;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .campaign-detail {
+        max-width: 800px;
+        margin: 2rem auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .campaign-image {
+        width: 50%;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .contribution-section {
+        margin-top: 30px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #fafafa;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .contribute-button {
+        background-color: #4dc3ff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .contribute-button:hover {
+        background-color: #0099cc;
+    }
+
+    .campaign-info {
+        font-size: 1.1em;
+        color: #555;
+    }
+
+    @media (max-width: 600px) {
+        .campaign-detail {
+            margin: 1rem;
+            padding: 15px;
+        }
+
+        .contribute-button {
+            width: 60%;
+        }
+    }
+</style>
+
+<div class="campaign-detail">
+    <h2>{{ campaign.title }}</h2>
+    <img src="{{ campaign.image.url }}" alt="{{ campaign.title }}" class="campaign-image">
+    <p class="campaign-info">{{ campaign.description }}</p>
+    <p class="campaign-info"><strong>Goal:</strong> ₹{{ campaign.goal }}</p>
+    <p class="campaign-info"><strong>Raised:</strong> ₹{{ campaign.raised_amount }}</p>
+    <p class="campaign-info"><strong>End Date:</strong> {{ campaign.end_date }}</p>
+</div>
+
+<div class="contribution-section">
+    <h3>Make a Contribution</h3>
+    <form method="post" action="{% url 'payment' campaign.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" name="amount" min="1" required>
+        </div>
+        <button type="submit" class="contribute-button">Contribute</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% load static %}
+
+<!-- templates/payment_success.html -->
+{% extends 'base.html' %}
+{% block title %}Payment Successful{% endblock %}
+{% block content %}
+<h2>Thank you!</h2>
+<p>Your payment of ${{ amount }} for {{ campaign.title }} was successful.</p>
+<a href="{% url 'receipt' %}">View Receipt</a>
+{% endblock %}

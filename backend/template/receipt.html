@@ -1,0 +1,12 @@
+{% load static %}
+
+{% load static %}
+<!-- templates/receipt.html -->
+{% extends 'base.html' %}
+{% block title %}Receipt{% endblock %}
+{% block content %}
+<h2>Receipt for {{ campaign.title }}</h2>
+<p>Amount: ${{ amount }}</p>
+<p>Date: {{ date }}</p>
+<p>Transaction ID: {{ transaction_id }}</p>
+{% endblock %}
