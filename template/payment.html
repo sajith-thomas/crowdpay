@@ -32,7 +32,7 @@
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-    var stripe = Stripe('{{ STRIPE_TEST_PUBLIC_KEY }}'); // Use your public key
+    var stripe = Stripe('{{ pk_test_51QGGkRKGl5yjZXkwGqtj5Zidt4QvoZGLqPdO0jCzo35mQigm2AbvBntnf6usNVZgDNIfYBrnxUuZsKQTlJJ0VFXo00rZdnWnoM }}'); // Use your public key
     var elements = stripe.elements();
     var cardElement = elements.create('card');
     cardElement.mount('#card-element');

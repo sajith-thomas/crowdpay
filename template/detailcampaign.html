@@ -1,109 +1,45 @@
-
 {% extends 'base.html' %}
 {% load static %}
 
 {% block title %}{{ campaign.title }}{% endblock %}
 
 {% block content %}
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<div class="container mx-auto p-6">
+    <div class="bg-white rounded-lg shadow-lg p-4 max-w-sm mx-auto hover:shadow-xl transform transition duration-300">
+        <div class="mb-4">
+            <img src="{{ campaign.image.url }}" alt="{{ campaign.title }}" class="w-full rounded-lg object-cover">
+        </div>
+        <div class="text-center">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">{{ campaign.title }}</h2>
+            <p class="text-gray-600 mb-4">{{ campaign.description }}</p>
+            <p class="text-gray-700 font-bold mb-2"><i class="fas fa-bullseye text-blue-500"></i> Goal: ₹{{ campaign.goal }}</p>
+            <p class="text-gray-700 font-bold"><i class="fas fa-hand-holding-heart text-green-500"></i> Raised: ₹{{ campaign.raised_amount }}</p>
+        </div>
+    </div>
+
+    <div class="mt-6 bg-gray-100 p-6 rounded-lg shadow-md max-w-sm mx-auto">
+        <h3 class="text-lg font-bold text-gray-700 mb-4"><i class="fas fa-donate text-yellow-500"></i> Make a Contribution</h3>
+        <form method="post" action="{% url 'payment' campaign.id %}">
+            {% csrf_token %}
+            <div class="form-group mb-4">
+                <label for="amount" class="block text-gray-600 font-semibold mb-2">Amount (₹):</label>
+                <input type="number" id="amount" name="amount" min="1" required class="w-full p-3 border border-gray-300 rounded-md focus:border-blue-500">
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 rounded-md hover:bg-blue-600 transition duration-300">
+                <i class="fas fa-credit-card"></i> Pay Now
+            </button>
+        </form>
+    </div>
+</div>
+
 <style>
     body {
-        background-color: #f4f4f4;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-
-    .campaign-detail {
-        max-width: 800px;
-        margin: 2rem auto;
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .campaign-image {
-        width: 50%;
-        border-radius: 8px;
-        margin-bottom: 20px;
-    }
-
-    .contribution-section {
-        margin-top: 30px;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        background-color: #fafafa;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-
-    input[type="number"] {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    .contribute-button {
-        background-color: #4dc3ff;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .contribute-button:hover {
-        background-color: #0099cc;
-    }
-
-    .campaign-info {
-        font-size: 1.1em;
-        color: #555;
-    }
-
-    @media (max-width: 600px) {
-        .campaign-detail {
-            margin: 1rem;
-            padding: 15px;
-        }
-
-        .contribute-button {
-            width: 60%;
-        }
+        background-color: #f7fafc;
+        font-family: 'Arial', sans-serif;
     }
 </style>
-
-<div class="campaign-detail">
-    <h2>{{ campaign.title }}</h2>
-    <img src="{{ campaign.image.url }}" alt="{{ campaign.title }}" class="campaign-image">
-    <p class="campaign-info">{{ campaign.description }}</p>
-    <p class="campaign-info"><strong>Goal:</strong> ₹{{ campaign.goal }}</p>
-    <p class="campaign-info"><strong>Raised:</strong> ₹{{ campaign.raised_amount }}</p>
-    <p class="campaign-info"><strong>End Date:</strong> {{ campaign.end_date }}</p>
-</div>
-
-<div class="contribution-section">
-    <h3>Make a Contribution</h3>
-    <form method="post" action="{% url 'payment' campaign.id %}">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="amount">Amount:</label>
-            <input type="number" id="amount" name="amount" min="1" required>
-        </div>
-        <button type="submit" class="contribute-button">Contribute</button>
-    </form>
-</div>
 
 {% endblock %}

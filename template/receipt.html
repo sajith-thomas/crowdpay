@@ -1,12 +1,84 @@
-{% load static %}
-
-{% load static %}
-<!-- templates/receipt.html -->
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Receipt{% endblock %}
+
 {% block content %}
-<h2>Receipt for {{ campaign.title }}</h2>
-<p>Amount: ${{ amount }}</p>
-<p>Date: {{ date }}</p>
-<p>Transaction ID: {{ transaction_id }}</p>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+    .receipt-container {
+        max-width: 700px;
+        margin: 2rem auto;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #f0f0f0;
+        padding-bottom: 15px;
+    }
+
+    .logo {
+        height: 60px;
+    }
+
+    .receipt-title {
+        font-size: 1.5em;
+        color: #333;
+    }
+
+    .receipt-details {
+        margin-top: 20px;
+        line-height: 1.6;
+    }
+
+    .receipt-details p {
+        margin: 10px 0;
+        color: #555;
+    }
+
+    .download-button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #4dc3ff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .download-button:hover {
+        background-color: #0099cc;
+    }
+</style>
+
+<div class="receipt-container">
+    <div class="header">
+        <img src="{% static 'images/logo.svg' %}" alt="CrowdPay Logo" class="logo">
+        <h2 class="receipt-title"><i class="fas fa-receipt text-blue-500"></i> Receipt</h2>
+    </div>
+
+    <div class="receipt-details">
+        <p><strong>Campaign:</strong> {{ campaign.title }}</p>
+        <p><strong>Amount:</strong> ₹{{ amount }}</p>
+        <p><strong>Date:</strong> {{ date }}</p>
+        <p><strong>Transaction ID:</strong> {{ transaction_id }}</p>
+        <p><strong>Name:</strong> {{ user_name }}</p>
+        <p><strong>Email:</strong> {{ user_email }}</p>
+    </div>
+
+    <a href="{% url 'download_receipt_pdf' %}" class="download-button">
+        <i class="fas fa-download"></i> Download as PDF
+    </a>
+</div>
 {% endblock %}
