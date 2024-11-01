@@ -1,0 +1,14 @@
+{% load static %}
+
+<!-- templates/campaigns/campaign_update.html -->
+{% extends 'base.html' %}
+{% block title %}Post an Update{% endblock %}
+{% block content %}
+<h2>Post an Update for {{ campaign.title }}</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="update_text">Update:</label>
+    <textarea id="update_text" name="update_text" rows="4"></textarea>
+    <button type="submit">Post Update</button>
+</form>
+{% endblock %}
