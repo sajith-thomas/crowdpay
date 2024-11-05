@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<div class="profile-page">
+    <!-- Profile Section -->
+    <div class="profile-card">
+        <div class="profile-header">
+            <h2>Welcome, {{ user.username }}</h2>
+            <p class="subtext">Manage your profile, contributions, and campaigns</p>
+        </div>
+        <div class="profile-content">
+            <div class="profile-picture">
+                <img src="{{ user.profile.image.url }}" alt="Profile Picture">
+            </div>
+            <div class="profile-details">
+                <div class="detail-box">
+                    <label><i class="fas fa-user"></i> Username</label>
+                    <p>{{ user.username }}</p>
+                </div>
+                <div class="detail-box">
+                    <label><i class="fas fa-envelope"></i> Email</label>
+                    <p>{{ user.email }}</p>
+                </div>
+                <div class="profile-actions">
+                    <a href="{% url 'edit_profile' %}" class="button edit-btn">Edit Profile</a>
+                    <form method="post" action="{% url 'logout' %}" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="button logout-btn">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="columns">
+        <!-- Contributions Section -->
+        <div class="contributions-box">
+            <h3 class="section-header">My Contributions</h3>
+            {% if contributions %}
+                <ul class="item-list">
+                    {% for contribution in contributions %}
+                        <li class="item">
+                            <strong>Campaign:</strong> {{ contribution.campaign.title }}<br>
+                            <strong>Amount:</strong> ₹{{ contribution.amount }}<br>
+                            <span class="date">Contributed on {{ contribution.timestamp|date:"M d, Y" }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="empty-state">You have not made any contributions yet.</p>
+            {% endif %}
+        </div>
+
+        <!-- Campaigns Section -->
+        <div class="campaigns-box">
+            <h3 class="section-header">My Campaigns</h3>
+            {% if campaigns %}
+                <ul class="item-list">
+                    {% for campaign in campaigns %}
+                        <li class="item">
+                            <a href="{% url 'campaign_detail' campaign.id %}" class="campaign-link">{{ campaign.title }}</a><br>
+                            <span class="campaign-info">Goal: ₹{{ campaign.goal_amount }} | Raised: ₹{{ campaign.raised_amount }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="empty-state">You have not created any campaigns yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Payments Section -->
+    <div class="payments-box">
+        <h3 class="section-header">My Payments</h3>
+        {% if payments %}
+            <ul class="item-list">
+                {% for payment in payments %}
+                    <li class="item">
+                        <strong>Campaign:</strong> {{ payment.campaign.title }}<br>
+                        <strong>Amount:</strong> ₹{{ payment.amount }}<br>
+                        <span class="date">Paid on {{ payment.timestamp|date:"M d, Y" }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty-state">You have not made any payments yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<style>
+   
+
+<style>
+    body {
+        background: #f0f4f8;
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 2em;
+        display: flex;
+        justify-content: center;
+    }
+    .profile-page {
+        max-width: 1200px;
+        width: 100%;
+    }
+    .profile-card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 2em;
+        margin-bottom: 2em;
+        text-align: center;
+    }
+    .profile-header h2 {
+        font-size: 2em;
+        margin-bottom: 0.2em;
+        color: #333;
+    }
+    .subtext {
+        color: #777;
+        font-size: 0.9em;
+    }
+    .profile-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5em;
+    }
+    .profile-picture img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 3px solid #4dc3ff;
+        object-fit: cover;
+    }
+    .profile-details .detail-box {
+        text-align: left;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+    .detail-box label {
+        font-weight: bold;
+        color: #555;
+        display: block;
+    }
+    .detail-box p {
+        background-color: #f7f9fc;
+        padding: 0.5em;
+        border-radius: 5px;
+        border: 1px solid #e1e4e8;
+    }
+    .profile-actions {
+        margin-top: 1.5em;
+    }
+    .button {
+        display: inline-block;
+        padding: 0.8em 1.5em;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 1em;
+        transition: background 0.3s;
+        cursor: pointer;
+    }
+    .edit-btn {
+        background-color: #4dc3ff;
+        color: #fff;
+        border: none;
+    }
+    .edit-btn:hover {
+        background-color: #3aa1d8;
+    }
+    .logout-btn {
+        background-color: #ff4d4d;
+        color: #fff;
+        border: none;
+    }
+    .logout-btn:hover {
+        background-color: #e43c3c;
+    }
+    .columns {
+        display: flex;
+        gap: 2em;
+        justify-content: space-between;
+    }
+    .contributions-box, .campaigns-box {
+        flex: 1;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 1em;
+    }
+    .section-header {
+        font-size: 1.5em;
+        margin-bottom: 1em;
+        color: #333;
+    }
+    .item-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .item {
+        padding: 1em;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .item:last-child {
+        border-bottom: none;
+    }
+    .campaign-link {
+        color: #007bff;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .campaign-link:hover {
+        text-decoration: underline;
+    }
+    .campaign-info {
+        color: #777;
+        font-size: 0.9em;
+    }
+    .empty-state {
+        color: #777;
+        font-style: italic;
+    }
+    .messages {
+        margin-top: 1em;
+    }
+    .message {
+        padding: 0.8em;
+        border-radius: 5px;
+        margin-bottom: 1em;
+        font-size: 1em;
+    }
+    .message.success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Campaigns{% endblock %}
+{% block content %}
+<style>
+    body {
+        background-color: #f8fafc; /* Light gray background */
+        font-family: 'Arial', sans-serif; /* Clean font */
+    }
+    .campaign-list {
+        max-width: 1200px; /* Maximum width for the list */
+        margin: 0 auto; /* Center the container */
+        padding: 20px; /* Padding around the container */
+        background: grey; /* White background for the card */
+        border-radius: 8px; /* Rounded corners for the container */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+    .campaign-container {
+        display: flex; /* Use flexbox to arrange children */
+        flex-wrap: wrap; /* Allow items to wrap into the next line */
+        justify-content: space-between; /* Space items evenly */
+        padding: 10px 0; /* Padding above and below the container */
+        gap: 20px; /* Space between cards */
+    }
+    .campaign-card {
+        background-color: #ffffff; /* White background for cards */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+        overflow: hidden; /* Clip the corners */
+        min-width: 200px; /* Reduced minimum width for cards */
+        max-width: calc(25% - 20px); /* Max width for 4 cards in a row (accounting for gap) */
+        transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
+    }
+    .campaign-card:hover {
+        transform: translateY(-5px); /* Lift effect on hover */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Deeper shadow */
+    }
+    .campaign-card img {
+        width: 100%; /* Make image fill the card width */
+        height: 150px; /* Fixed height for images */
+        object-fit: cover; /* Maintain aspect ratio */
+    }
+    .campaign-card h3 {
+        font-size: 1.3rem; /* Slightly smaller font size for titles */
+        background-color: #3b82f6; /* Bright blue background */
+        color: white; /* White text */
+        padding: 0.8rem; /* Reduced padding around the title */
+        margin: 0; /* Remove margin */
+    }
+    .campaign-card p {
+        color: #4b5563; /* Gray color for text */
+        padding: 0.5rem 0.8rem; /* Reduced padding for text */
+        line-height: 1.5; /* Line height for readability */
+    }
+    .goal, .raised {
+        font-weight: bold; /* Bold text for important info */
+    }
+    .goal span, .raised span {
+        font-weight: normal; /* Normal weight for amounts */
+    }
+    .view-details-button {
+        display: inline-block; /* Inline-block for button */
+        background-color: #3b82f6; /* Button color */
+        color: white; /* Text color */
+        padding: 0.4rem 0.8rem; /* Reduced padding around button */
+        border-radius: 5px; /* Rounded corners */
+        text-decoration: none; /* Remove underline */
+        transition: background-color 0.3s; /* Transition for hover */
+    }
+    .view-details-button:hover {
+        background-color: #2563eb; /* Darker blue on hover */
+    }
+</style>
+
+<div class="campaign-list">
+    <div class="campaign-container">
+        {% for campaign in campaigns %}
+            <div class="campaign-card">
+                {% if campaign.image %}
+                    <img src="{{ campaign.image.url }}" alt="{{ campaign.title }} image">
+                {% endif %}
+                <h3><a href="{% url 'campaign_detail' campaign.id %}">{{ campaign.title }}</a></h3>
+                <p>{{ campaign.description|truncatewords:30 }}</p>
+                <div class="p-4 flex justify-between items-center">
+                    <p class="goal">Goal: <span>₹{{ campaign.goal }}</span></p>
+                    <p class="raised">Raised: <span>₹{{ campaign.raised_amount }}</span></p>
+                </div>
+                <div class="p-4 text-right">
+                    <a href="{% url 'campaign_detail' campaign.id %}" class="view-details-button">View Details</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No approved campaigns available at this time.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
