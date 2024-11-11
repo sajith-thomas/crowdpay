@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .contact-box {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .contact-box h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .contact-box h2 {
+            font-size: 1.5rem;
+            color: #555;
+            margin-top: 20px;
+        }
+
+        .contact-box p {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .contact-box p:not(:last-child) {
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .contact-box {
+                padding: 20px;
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <div class="contact-box">
+            <h1>Contact Us</h1>
+            <h2>Get in Touch</h2>
+            <p>If you have any questions, suggestions, or just want to say hello, please feel free to reach out to us. We’re here to help and support you.</p>
+            <h2>Contact Information</h2>
+            <p>Email: contact@crowdpay.com</p>
+            <p>Phone: +919988776655</p>
+            <p>Address: Teli-Gali Road, Andheri (East), Mumbai, Maharashtra 400069
+            </p>
+        </div>
+    </div>
+    {% endblock content %}
+</body>
+</html>

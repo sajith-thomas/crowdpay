@@ -34,6 +34,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STRIPE_TEST_PUBLIC_KEY = 'pk_test_51QGGkRKGl5yjZXkwGqtj5Zidt4QvoZGLqPdO0jCzo35mQigm2AbvBntnf6usNVZgDNIfYBrnxUuZsKQTlJJ0VFXo00rZdnWnoM'
 STRIPE_TEST_SECRET_KEY = 'sk_test_51QGGkRKGl5yjZXkwZ7L2CSJJvQDCK8WVLIhlDKMghNnCIuQttWAlBIg9uL7P80lciWWtBg3VIg94jydqu8ofPgf500oVp1ywqQ'
 
+RAZORPAY_SECRET_KEY = 'Juc0iVr70zhj2f7w5n6Qfn9T'
+RAZORPAY_KEY_ID = 'rzp_test_yCdJquTC727i5J'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 

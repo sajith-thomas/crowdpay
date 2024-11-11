@@ -1,3 +1,4 @@
+{% load custom_filters %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="{% static 'js/scripts.js' %}" defer></script>
-    
 </head>
 <body>
     <header>
@@ -24,34 +24,75 @@
                     <li><a href="{% url 'create_campaign' %}"><i class="fas fa-plus-circle"></i> Start Campaign</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'profile' %}"><i class="fas fa-user-circle"></i> {{ user.username }}</a></li>
-                        <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                        <form action="{% url 'logout' %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="profile-button logout-button">Logout</button>
-                        </form>
-                        <form action="{% url 'profile' %}" method="get">
-                            <button type="submit" class="profile-button">Profile</button>
-                            {% csrf_token %}
+                        <li>
+                            <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</button>
                             </form>
-                            
+                        </li>
                     {% else %}
                         <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
                         <li><a href="{% url 'signup' %}"><i class="fas fa-user-plus"></i> Sign Up</a></li>
                     {% endif %}
+                    <li><a href="{% url 'contact' %}"><i class="fas fa-envelope"></i> Contact</a></li>
+    <li><a href="{% url 'about' %}"><i class="fas fa-info-circle"></i> About Us</a></li>
                 </ul>
-                <div class="search-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" placeholder="Search Campaigns">
-                </div>
+                <form action="{% url 'search' %}" method="get" class="search-container">
+                    <input type="text" name="q" placeholder="Search campaigns..." required>
+                    <button type="submit">Search</button>
+                </form>
             </nav>
             {% endif %}
         </div>
     </header>
   
-    </div>
-
     <main>
-        {% block content %}{% endblock %}
+        
+        {% block content %}
+        
+        <div class="campaign-display">
+            {% for campaign in campaigns %}
+            <div class="campaign-card" style="display: none;" data-campaign-index="{{ forloop.counter0 }}">
+                <img src="{{ campaign.image.url }}" alt="Campaign Image" class="campaign-image">
+                <div class="campaign-content">
+                    <h2 class="campaign-title">{{ campaign.title }}</h2>
+                    <p class="campaign-description">{{ campaign.description|truncatewords:20 }}</p>
+                    <div class="campaign-info">
+                        <p class="goal">Goal: <span>₹{{ campaign.goal }}</span></p>
+                        <p class="raised">Raised: <span>₹{{ campaign.raised_amount }}</span></p>
+                    </div>
+                    <a href="{% url 'campaign_detail' campaign.id %}" class="campaign-button">View Details</a>
+                </div>
+            </div>
+            
+            {% endfor %}
+        </div>
+
+        <script>
+            // JavaScript to cycle through campaigns every 3 seconds
+            let currentIndex = 0;
+            const campaigns = document.querySelectorAll('.campaign-card');
+            
+            function showCampaign(index) {
+                campaigns.forEach((campaign, i) => {
+                    campaign.style.display = i === index ? 'block' : 'none';
+                });
+            }
+
+            function startCampaignRotation() {
+                showCampaign(currentIndex); // Show the first campaign initially
+                setInterval(() => {
+                    currentIndex = (currentIndex + 1) % campaigns.length;
+                    showCampaign(currentIndex);
+                }, 3000); // Change campaign every 3 seconds
+            }
+
+            if (campaigns.length > 0) {
+                startCampaignRotation();
+            }
+        </script>
+
+        {% endblock %}
     </main>
 
     {% if request.resolver_match.url_name != 'login' %}

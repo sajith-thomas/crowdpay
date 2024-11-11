@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profiles List</title>
+</head>
+<body>
+    <h1>Profile List</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Image</th>
+                <!-- Add other fields you want to display -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for profile in profiles %}
+            <tr>
+                <td>{{ profile.id }}</td>
+                <td>{{ profile.user }}</td>
+                <td><img src="{{ profile.image.url }}" alt="Profile Image" width="50"></td>
+                <!-- Display other fields similarly -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

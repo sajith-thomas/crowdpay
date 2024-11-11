@@ -1,0 +1,11 @@
+<form method="post" action="{% url 'stripe_payment' campaign.id %}">
+    {% csrf_token %}
+    <input type="hidden" name="amount" value="{{ campaign.goal_amount }}">
+    <button type="submit">Pay with Stripe</button>
+</form>
+
+<form method="post" action="{% url 'razorpay_payment' campaign.id %}">
+    {% csrf_token %}
+    <input type="hidden" name="amount" value="{{ campaign.goal_amount }}">
+    <button type="submit">Pay with Razorpay</button>
+</form>

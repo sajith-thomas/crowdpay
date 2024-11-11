@@ -1,61 +1,103 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-<style>
-    /* Add some basic styles */
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f8fafc;
-    }
-    .payment-form {
-        max-width: 400px;
-        margin: 50px auto;
-        padding: 20px;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .payment-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 100%;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #6772e5;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #5469d4;
+        }
+        .success-message {
+            display: none;
+            color: green;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h1>Make a Payment</h1>
+        <form method="post" action="{% url 'payment' campaign_id=campaign.id %}">
+            {% csrf_token %}
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your name">
+            </div>
 
-<div class="payment-form">
-    <h2>Make a Payment</h2>
-    <form id="payment-form" method="POST">
-        {% csrf_token %}
-        <div>
-            <label for="card-element">Credit or debit card</label>
-            <div id="card-element"></div>
-            <div id="card-errors" role="alert"></div>
-        </div>
-        <button type="submit">Submit Payment</button>
-    </form>
-</div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
 
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-    var stripe = Stripe('{{ pk_test_51QGGkRKGl5yjZXkwGqtj5Zidt4QvoZGLqPdO0jCzo35mQigm2AbvBntnf6usNVZgDNIfYBrnxUuZsKQTlJJ0VFXo00rZdnWnoM }}'); // Use your public key
-    var elements = stripe.elements();
-    var cardElement = elements.create('card');
-    cardElement.mount('#card-element');
-
-    // Handle form submission
-    var form = document.getElementById('payment-form');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        stripe.createToken(cardElement).then(function(result) {
-            if (result.error) {
-                // Display error in #card-errors
-                document.getElementById('card-errors').textContent = result.error.message;
-            } else {
-                // Send the token to your server
-                var hiddenInput = document.createElement('input');
-                hiddenInput.setAttribute('type', 'hidden');
-                hiddenInput.setAttribute('name', 'stripeToken');
-                hiddenInput.setAttribute('value', result.token.id);
-                form.appendChild(hiddenInput);
-                form.submit();
-            }
-        });
-    });
-</script>
-{% endblock %}
+            <div>
+                <label for="amount">Amount (INR):</label>
+                <input type="number" id="amount" name="amount" required placeholder="Enter amount in INR">
+            </div>
+            <form method="post" action="{% url 'stripe_payment' campaign_id=campaign.id %}">
+                {% csrf_token %}
+                <!-- Input fields for amount, name, and email as shown in your existing form -->
+                <button type="submit">Pay with Stripe</button>
+            </form>
+            
+            <form method="post" action="{% url 'razorpay_payment' campaign_id=campaign.id %}">
+                {% csrf_token %}
+                <button type="submit">Pay with Razorpay</button>
+            </form>
+        </form>
+    </div>
+</body>
+</html>

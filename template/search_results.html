@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<div class="container mx-auto p-6">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Search Results for "{{ query }}"</h2>
+
+    {% if results %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for campaign in results %}
+                <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transform transition duration-300 p-5">
+                    <div class="mb-4">
+                        {% if campaign.image %}
+                            <img src="{{ campaign.image.url }}" alt="{{ campaign.title }}" class="w-full h-48 object-cover rounded-lg">
+                        {% else %}
+                            <img src="{% static 'images/default.jpg' %}" alt="{{ campaign.title }}" class="w-full h-48 object-cover rounded-lg">
+                        {% endif %}
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ campaign.title }}</h3>
+                    <p class="text-white text-sm font-medium leading-600 mb-4">{{ campaign.description|truncatewords:20 }}</p>
+                    <a href="{% url 'campaign_detail' campaign.id %}" class="inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">
+                        <i class="fas fa-arrow-right"></i> View Campaign
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-white-700 font-semibold text-lg">No results found for your search query.</p>
+    {% endif %}
+</div>
+
+<style>
+    body {
+        background-color: silver;
+        font-family: 'Arial', sans-serif;
+        transition: transform 0.3s, box-shadow 0.3s;
+        object-fit: cover;
+
+    }
+
+    .container {
+        max-width: 1200px;
+        
+    }
+
+
+    .campaign-card:hover {
+        transform: translateY(-5px);
+        transition: transform 0.5s ease-in-out;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        radius: 10px;
+    }
+    
+
+</style>
+{% endblock %}

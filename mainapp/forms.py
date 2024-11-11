@@ -38,3 +38,7 @@ class CampaignForm(forms.ModelForm):
         if goal <= 0:
             raise ValidationError("Goal amount must be greater than zero.")
         return goal
+    
+
+class DonationForm(forms.Form):
+    amount = forms.IntegerField(min_value=1, label='Amount (₹)', required=True)

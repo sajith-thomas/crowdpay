@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Campaign
+from .models import  Payment
+
 
 @admin.register(Campaign)
 class CampaignAdmin(admin.ModelAdmin):
@@ -9,8 +11,17 @@ class CampaignAdmin(admin.ModelAdmin):
 
     def approve_campaign(self, request, queryset):
         queryset.update(approved=True)
+        self.message_user(request, f"{queryset.count()} campaigns approved.")
 
     def reject_campaign(self, request, queryset):
         queryset.update(approved=False)
+        self.message_user(request, f"{queryset.count()} campaigns rejected.")
 
     actions = [approve_campaign, reject_campaign]
+
+    
+
+admin.site.register(Payment)
+
+
+

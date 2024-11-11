@@ -60,6 +60,20 @@
     .download-button:hover {
         background-color: #0099cc;
     }
+
+    .footer {
+        margin-top: 30px;
+        border-top: 1px solid #f0f0f0;
+        padding-top: 15px;
+        text-align: center;
+        color: #888;
+    }
+
+    .thank-you {
+        font-size: 1.2em;
+        margin-top: 20px;
+        color: #333;
+    }
 </style>
 
 <div class="receipt-container">
@@ -69,16 +83,30 @@
     </div>
 
     <div class="receipt-details">
-        <p><strong>Campaign:</strong> {{ campaign.title }}</p>
-        <p><strong>Amount:</strong> ₹{{ amount }}</p>
-        <p><strong>Date:</strong> {{ date }}</p>
-        <p><strong>Transaction ID:</strong> {{ transaction_id }}</p>
-        <p><strong>Name:</strong> {{ user_name }}</p>
-        <p><strong>Email:</strong> {{ user_email }}</p>
+        <p><strong>Thank you for your donation, {{ username }}!</strong></p>
+        <p><strong>Amount Donated:</strong> ₹{{ amount }}</p>
+        <p><strong>Currency:</strong> {{ payment.currency }}</p>
+        <p><strong>Transaction Date:</strong> {{ transaction_time }}</p>
+        <p><strong>Campaign Name:</strong> {{ campaign_name }}</p>
+        <p><strong>Campaign Description:</strong> {{ campaign.description }}</p>
+        <p><strong>Donor Email:</strong> {{ user_email }}</p>
+        <p><strong>Campaign Goal:</strong> ₹{{ campaign.goal }}</p>
+        <p><strong>Total Contributions:</strong> ₹{{ campaign.total_contributions }}</p>
+        <p><strong>Campaign Status:</strong> {{ campaign.status }}</p>
     </div>
 
     <a href="{% url 'download_receipt_pdf' %}" class="download-button">
         <i class="fas fa-download"></i> Download as PDF
     </a>
+
+    <div class="thank-you">
+        <p>Thank you for your generous contribution!</p>
+        <p>Your support helps us make a difference.</p>
+    </div>
+
+    <div class="footer">
+        <p>&copy; {{ current_year }} CrowdPay. All rights reserved.</p>
+        <p><a href="{% url 'homepage' %}" style="text-decoration: none; color: #4dc3ff;">Return to Homepage</a></p>
+    </div>
 </div>
 {% endblock %}
