@@ -1,3 +1,9 @@
+![CrowdPay Logo](static/images/logo.svg)
+
+# CrowdPay
+
+CrowdPay is a crowdfunding platform built with Django, designed to help individuals and organizations create campaigns to raise funds for various causes...
+
 # CrowdPay
 
 CrowdPay is a crowdfunding platform built with Django, designed to help individuals and organizations create campaigns to raise funds for various causes. Users can create accounts, initiate campaigns, and securely process donations via integrated payment options.
