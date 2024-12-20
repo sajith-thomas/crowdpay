@@ -31,17 +31,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_URL = '/media/'  # URL prefix for accessing media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
 
-STRIPE_TEST_PUBLIC_KEY = 'pk_test_51QGGkRKGl5yjZXkwGqtj5Zidt4QvoZGLqPdO0jCzo35mQigm2AbvBntnf6usNVZgDNIfYBrnxUuZsKQTlJJ0VFXo00rZdnWnoM'
-STRIPE_TEST_SECRET_KEY = 'sk_test_51QGGkRKGl5yjZXkwZ7L2CSJJvQDCK8WVLIhlDKMghNnCIuQttWAlBIg9uL7P80lciWWtBg3VIg94jydqu8ofPgf500oVp1ywqQ'
+STRIPE_TEST_PUBLIC_KEY = 'pk_test_51QGGkRKGl5yjZXkwGqtj5Zidt4QvoZGLqPdO0jCzo35mQigm2AbvBntnf6usNVZgDNIfYBrnxUuZsKQTlJJ0VFXo00rZdnWnoMyyy'
+STRIPE_TEST_SECRET_KEY = 'sk_test_51QGGkRKGl5yjZXkwZ7L2CSJJvQDCK8WVLIhlDKMghNnCIuQttWAlBIg9uL7P80lciWWtBg3VIg94jydqu8ofPgf500oVp1ywqQxxx'
 
-RAZORPAY_SECRET_KEY = 'Juc0iVr70zhj2f7w5n6Qfn9T'
-RAZORPAY_KEY_ID = 'rzp_test_yCdJquTC727i5J'
+RAZORPAY_SECRET_KEY = 'Juc0iVr70zhj2f7w5n6Qfn9Tyyy'
+RAZORPAY_KEY_ID = 'rzp_test_yCdJquTC727i5Jxxx'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i+n9(r%@_(k3hms3sw)+gyccf^3f9h5@v%dztt4ntg5tkbanf7'
+SECRET_KEY = 'django-insecure-i+n9(r%@_(k3hms3sw)+gyccf^3f9h5@v%dztt4ntg5tkbanf7xxx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
