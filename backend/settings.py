@@ -20,7 +20,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.example.com'  # Your SMTP server
 EMAIL_PORT = 587                 # Usually 587 for TLS
 EMAIL_USE_TLS = True             # Use TLS for security
-EMAIL_HOST_USER = 'heytonybot@gmail.com'
+EMAIL_HOST_USER = 'test@gmail.com'
 EMAIL_HOST_PASSWORD = 'password'
 DEFAULT_FROM_EMAIL = 'webmaster@example.com'
 
@@ -102,13 +102,13 @@ DATABASES = {
 }
 
 ADMINS = [
-    ('heytony', 'heytonybot@gmail.com'),
+    ('heytony', 'test@gmail.com'),
 ]
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.example.com'  # Your SMTP server
 EMAIL_PORT = 587                 # Usually 587 for TLS
 EMAIL_USE_TLS = True             # Use TLS for security
-EMAIL_HOST_USER = 'heytonybot@gmail.com'
+EMAIL_HOST_USER = 'testt@gmail.com'
 EMAIL_HOST_PASSWORD = 'password'
 DEFAULT_FROM_EMAIL = 'webmaster@example.com'
 
