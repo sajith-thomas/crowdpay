@@ -5,7 +5,6 @@ from .forms import SignupForm, CampaignForm
 from .models import Campaign, Payment, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-import re
 import stripe, razorpay
 from django.conf import settings
 from django.views import View
