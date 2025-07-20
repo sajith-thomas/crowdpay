@@ -23,7 +23,7 @@ CrowdPay is a crowdfunding platform built with Django, designed to help individu
 - **Payment Integration**: Support for secure payments via Stripe and Razorpay.
 - **User Dashboard**: Track contributions, manage campaigns, and monitor progress.
 - **Responsive Design**: User-friendly interface optimized for all devices.
-- **Admin Dashboard**: Approve or reject campaigns, manage users, and oversee contributions.
+- **Admin Dashboard**: Approve or reject campaigns, manage users and oversee contributions.
 
 ## Technologies Used
 - **Backend**: Python 3.12.7, Django 5.1.2
