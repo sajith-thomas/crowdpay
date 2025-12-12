@@ -24,7 +24,7 @@ Users can create accounts, initiate campaigns, and securely process donations vi
 
 ## Technologies Used
 - **Backend**: Python 3.12.7, Django 5.1.2
-- **Database**: SQLite (or other database options compatible with Django)
+- **Database**: SQLite (by default)
 - **Frontend**: HTML, CSS, JavaScript (with Tailwind CSS for styling)
 - **Payment Gateways**: Stripe and Razorpay
 
