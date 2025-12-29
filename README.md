@@ -17,7 +17,7 @@ Users can create accounts, initiate campaigns, and securely process donations vi
 ## Features
 - **User Authentication**: Sign up, log in, and manage profiles.
 - **Campaign Management**: Create, edit, and view campaigns, with admin approval.
-- **Payment Integration**: Support for secure payments via Stripe and Razorpay.
+- **Payment Integration**: Secure payments via Stripe and Razorpay.
 - **User Dashboard**: Track contributions, manage campaigns, and monitor progress.
 - **Responsive Design**: User-friendly interface optimized for all devices.
 - **Admin Dashboard**: Approve or reject campaigns, manage users and oversee contributions.
