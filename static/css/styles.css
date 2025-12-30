@@ -1,9 +1,9 @@
-/* Background styling for body */
+
 body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
-    /*background-image: url("/static/images/");  Update this path to your image */
+    /*background-image: url("/static/images/");*/
     background-size: cover; /* Stretch the background image */
     background-position: center center; /* Center the background image */
     background-attachment: fixed;
@@ -14,7 +14,6 @@ body {
     
 }
 
-/* Custom background for specific sections */
 .custom-background {
     padding: 5px;
     color: rgb(23, 4, 4);
@@ -94,7 +93,7 @@ nav ul {
     padding: 0;
     display: flex;
     align-items: center;   
-    margin-right: 20px;
+    margin-right: 25px;
     margin-left: auto;
     display: flex;    
     align-items: right;
@@ -111,7 +110,7 @@ nav ul li a {
     font-weight: bold;
     display: flex;
     align-items: center;
-    transition: color 0.3s, transform 0.2s; /* Smooth hover effect */
+    transition: color 0.6s, transform 0.3s; /* Smooth hover effect */
 }
 
 nav ul li a i {
